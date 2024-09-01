@@ -1,15 +1,13 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
   type DefaultSession,
   type NextAuthOptions,
+  type User,
 } from "next-auth";
-import { type Adapter } from "next-auth/adapters";
-import DiscordProvider from "next-auth/providers/discord";
-
-import { env } from "~/env";
-import { db } from "~/server/db";
+import CredentialsProvider from "next-auth/providers/credentials";
+import fetchData from "~/utils/fetchData";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -19,17 +17,17 @@ import { db } from "~/server/db";
  */
 declare module "next-auth" {
   interface Session extends DefaultSession {
-    user: DefaultSession["user"] & {
-      id: string;
-      // ...other properties
-      // role: UserRole;
-    };
+    user: User & DefaultSession["user"];
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    id: number;
+    companyId: number;
+    permission: string;
+    clientId: number | undefined;
+    clientName: string | undefined;
+    acessToken: string;
+  }
 }
 
 /**
@@ -39,19 +37,48 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      if (!session || !token.user) return session;
+      const { user } = token as { user: User };
+      session.user = user;
+      return session;
+    },
   },
-  adapter: PrismaAdapter(db) as Adapter,
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    CredentialsProvider({
+      // The name to display on the sign in form (e.g. "Sign in with...")
+      name: "Credentials",
+      // `credentials` is used to generate a form on the sign in page.
+      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
+      // e.g. domain, username, password, 2FA token, etc.
+      // You can pass any HTML attribute to the <input> tag through the object.
+      credentials: {
+        username: {
+          label: "Username",
+          type: "text",
+          placeholder: "jsmith",
+        },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials) return null;
+        const { username, password } = credentials;
+        const user = await fetchData<User>({
+          path: "/user/auth",
+          params: { username, password },
+          method: "GET",
+          data: null,
+        });
+
+        if (!user) return null;
+        return user as User;
+      },
     }),
     /**
      * ...add more providers here.
@@ -63,6 +90,14 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+
+  session: {
+    strategy: "jwt",
+  },
+
+  pages: {
+    signIn: "/",
+  },
 };
 
 /**

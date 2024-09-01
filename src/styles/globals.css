@@ -1,3 +1,69 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .no-caret {
+    &::-webkit-calendar-picker-indicator {
+      display: none;
+      -webkit-appearance: none;
+    }
+  }
+}
+
+.rs-picker-popup.rs-picker-popup-date {
+  z-index: 99;
+}
+
+.animation-spin-y {
+  perspective: 1500px; /* Cria a perspectiva 3D */
+  animation: spinY 0.25s ease-out forwards; /* Animação de rotação */
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out infinite;
+}
+
+.animate-thumbsup {
+  animation: thumbsup 0.5s ease-out forwards;
+}
+
+@keyframes thumbsup {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes spinY {
+  0% {
+    rotate: 0.25 1 0 -90deg;
+  }
+  100% {
+    rotate: 1 1 0 0deg;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+}
