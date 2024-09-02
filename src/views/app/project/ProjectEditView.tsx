@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Button } from "~/components/common/Button";
 import { Divider } from "~/components/common/Divider";
+import HoldButton from "~/components/common/HoldButton";
 import { IconButton } from "~/components/common/IconButton";
 import { InputDate } from "~/components/common/InputDate";
 import { InputGroup } from "~/components/common/InputGroup";
@@ -12,10 +13,12 @@ import { InputSelect } from "~/components/common/InputSelect";
 import { TextArea } from "~/components/common/TextArea";
 import { MiniTaskRow } from "~/components/task/MiniTaskRow";
 import { Modal } from "~/layouts/modal";
+import { deleteProject } from "~/services/project/deleteProject";
 import { getProject } from "~/services/project/getProject";
 import { updateProject } from "~/services/project/updateProject";
 import { TaskPriority, TaskStatus, type Project } from "~/types/Models";
 import { type UpdateProjectDto } from "~/types/project/update-project.dto";
+import awaitFor from "~/utils/awaitFor";
 import { CommentChain } from "../comment/CommentChain";
 import { CustomerOptions } from "../customer/CustomerOptions";
 import { UserOptions } from "../user/UserOptions";
@@ -94,6 +97,19 @@ export const ProjectEditView = ({
   const togglePanel = () => {
     if (show === "chat") setShow("project");
     else setShow("chat");
+  };
+
+  const handleDeleteProject = async () => {
+    if (!project) return;
+    const response = await deleteProject(project.id);
+    if (!response?.id) {
+      toast.error("Houve um erro ao excluir a rotina");
+      return;
+    }
+
+    await awaitFor(false, 0.5);
+
+    handleClose();
   };
 
   const dependantProjectsDisplay = useMemo(() => {
@@ -247,11 +263,27 @@ export const ProjectEditView = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 pt-4">
-              <Button>Salvar</Button>
-              <Button layout="cancel" onClick={() => handleClose()}>
+            <div className="grid grid-cols-7 gap-4 pt-4">
+              <Button className="col-span-3">Salvar</Button>
+              <Button
+                className="col-span-3"
+                layout="cancel"
+                onClick={() => handleClose()}
+              >
                 Cancelar
               </Button>
+              <HoldButton
+                type="button"
+                completedText={"👍"}
+                className="flex flex-col items-center justify-center"
+                holdTime={2000}
+                onClick={handleDeleteProject}
+              >
+                <span>🗑</span>
+                <span className="text-xs tracking-tight text-white">
+                  Excluir
+                </span>
+              </HoldButton>
             </div>
           </form>
         </div>
