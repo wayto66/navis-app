@@ -13,6 +13,7 @@ import { InputText } from "~/components/common/InputText";
 import { TextArea } from "~/components/common/TextArea";
 import { Modal } from "~/layouts/modal";
 import { checkRoutine } from "~/services/routine/checkRoutine";
+import { deleteRoutine } from "~/services/routine/deleteRoutine";
 import { getRoutine } from "~/services/routine/getRoutine";
 import { updateRoutine } from "~/services/routine/updateRoutine";
 import { RoutineMode, type Routine } from "~/types/Models";
@@ -96,6 +97,19 @@ export const RoutineEditView = ({
     }
 
     await awaitFor(false, 1);
+
+    handleClose();
+  };
+
+  const handleDeleteRoutine = async () => {
+    if (!routine) return;
+    const response = await deleteRoutine(routine.id);
+    if (!response?.id) {
+      toast.error("Houve um erro ao excluir a rotina");
+      return;
+    }
+
+    await awaitFor(false, 0.5);
 
     handleClose();
   };
@@ -232,6 +246,7 @@ export const RoutineEditView = ({
                 completedText={"👍"}
                 className="flex flex-col items-center justify-center"
                 holdTime={2000}
+                onClick={handleDeleteRoutine}
               >
                 <span>🗑</span>
                 <span className="text-xs tracking-tight text-white">

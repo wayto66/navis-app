@@ -138,12 +138,14 @@ const ProjectListPage: NextPage = () => {
           </InputSelect>
           <InputSelect register={register} className="grow" paramName="status">
             <option value={""}>Selecionar Estado</option>
-            <option value={TaskStatus.DEFINE_DEADLINE}>SEM PRAZO</option>
-            <option value={TaskStatus.PENDING}>PENDENTE</option>
-            <option value={TaskStatus.IN_APPROVAL}>APROVAÇÃO</option>
-            <option value={TaskStatus.IN_CHANGE}>ALTERAÇÃO</option>
-            <option value={TaskStatus.COMPLETED}>FINALIZADA</option>
-            <option value={TaskStatus.CANCELLED}>CANCELADA</option>
+            <option value={TaskStatus.DEFINE_DEADLINE}>📆 Definir Prazo</option>
+            <option value={TaskStatus.PENDING}>💤 Pendente</option>
+            <option value={TaskStatus.IN_PROGRESS}>🔨 Em Progresso</option>
+            <option value={TaskStatus.IN_CHANGE}>🚧 Em Alteração</option>
+            <option value={TaskStatus.IN_APPROVAL}>🕵️‍♀️ Em Aprovação</option>
+            <option value={TaskStatus.COMPLETED}>✅ Finalizada</option>
+            <option value={TaskStatus.CANCELLED}>❌ Cancelada</option>
+            <option value={TaskStatus.LOCKED}>🔒 Travada</option>
           </InputSelect>
         </div>
 
