@@ -78,8 +78,9 @@ export const TaskEditView = ({ handleClose, taskId }: TaskEditViewParams) => {
   };
 
   const copyTaskUrl = async () => {
+    const baseURL = `${window.location.protocol}//${window.location.host}`;
     await window.navigator.clipboard.writeText(
-      `http://localhost:3000/app/task?task_id=${task?.id}`,
+      `${baseURL}/app/task?task_id=${task?.id}`,
     );
     toast.success("URL copiada com sucesso!");
   };
@@ -90,8 +91,9 @@ export const TaskEditView = ({ handleClose, taskId }: TaskEditViewParams) => {
   };
 
   const openProject = () => {
+    const baseURL = `${window.location.protocol}//${window.location.host}`;
     window.open(
-      `http://localhost:3000/app/project?project_id=${task?.projectId}`,
+      `${baseURL}/app/project?project_id=${task?.projectId}`,
       "_blank",
     );
   };

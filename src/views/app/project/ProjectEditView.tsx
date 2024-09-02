@@ -79,8 +79,9 @@ export const ProjectEditView = ({
   };
 
   const copyProjectUrl = async () => {
+    const baseURL = `${window.location.protocol}//${window.location.host}`;
     await window.navigator.clipboard.writeText(
-      `http://localhost:3000/app/project?project_id=${project?.id}`,
+      `${baseURL}/app/project?project_id=${project?.id}`,
     );
     toast.success("URL copiada com sucesso!");
   };

@@ -75,8 +75,9 @@ export const RoutineEditView = ({
   };
 
   const copyRoutineUrl = async () => {
+    const baseURL = `${window.location.protocol}//${window.location.host}`;
     await window.navigator.clipboard.writeText(
-      `http://localhost:3000/app/routine?routine_id=${routine?.id}`,
+      `${baseURL}/app/routine?routine_id=${routine?.id}`,
     );
     toast.success("URL copiada com sucesso!");
   };

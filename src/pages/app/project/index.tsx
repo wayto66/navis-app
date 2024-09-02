@@ -18,8 +18,8 @@ import {
   type GetProjectsParams,
 } from "~/services/project/getProjects";
 import { type Project, TaskStatus } from "~/types/Models";
-
 import { type ProjectSortTarget } from "~/types/project/sort-project";
+
 import { type SortOrder } from "~/types/Sort";
 import { CustomerOptions } from "~/views/app/customer/CustomerOptions";
 
@@ -32,7 +32,7 @@ const ProjectListPage: NextPage = () => {
   const router = useRouter();
   const { register, setValue, watch, getValues } = useForm<GetProjectsParams>();
   const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
-  const [sortTarget, setSortTarget] = useState<ProjectSortTarget | undefined>(
+  const [sortTarget, setSortTarget] = useState<string | undefined>(
     "targetDate",
   );
 
@@ -63,7 +63,7 @@ const ProjectListPage: NextPage = () => {
     setProjects(newProjects ?? []);
   };
 
-  const handleReorder = (target: ProjectSortTarget | undefined) => {
+  const handleReorder = (target: string | undefined) => {
     if (target !== sortTarget) {
       setSortOrder("asc");
       setSortTarget(target);
@@ -227,7 +227,7 @@ const ProjectListPage: NextPage = () => {
             projects={projects}
             onClick={openProjectEditView}
             sortOrder={sortOrder}
-            sortTarget={sortTarget}
+            sortTarget={sortTarget as ProjectSortTarget}
           />
         </div>
       </div>

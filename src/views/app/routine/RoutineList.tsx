@@ -2,19 +2,20 @@ import { useMemo } from "react";
 import { Divider } from "~/components/common/Divider";
 import { RoutineRow } from "~/components/routine/RoutineRow";
 import { type Routine } from "~/types/Models";
-import { type SortOrder, type SortTarget } from "~/types/Sort";
+import { type RoutineSortTarget } from "~/types/routine/sort-routine";
+import { type SortOrder } from "~/types/Sort";
 
 interface RoutineListParams {
   routines: Routine[];
   onClick: (routine: Routine) => void;
   sortOrder?: SortOrder;
-  sortTarget?: SortTarget | undefined;
+  sortTarget?: RoutineSortTarget | undefined;
 }
 
 const sortRoutines = (
   input_routines: Routine[] | undefined,
   sortOrder?: SortOrder,
-  input_sortTarget?: SortTarget | undefined,
+  input_sortTarget?: RoutineSortTarget | undefined,
 ): Routine[] => {
   const sortOrderFactor = sortOrder === "asc" ? 1 : -1;
   let sortTarget = input_sortTarget;

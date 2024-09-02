@@ -1,7 +1,6 @@
 import autoAnimate from "@formkit/auto-animate";
 import { useEffect, useRef } from "react";
 import { type Routine } from "~/types/Models";
-import { RoutineStatusLabel } from "../labels/RoutineStatusLabel";
 
 interface MicroRoutineRowParams {
   routine: Routine;
@@ -24,7 +23,6 @@ export const MicroRoutineRow = ({
       ref={ref}
     >
       <div className="flex flex-row items-center gap-1 px-2 py-1">
-        <RoutineStatusLabel status={routine.status} />
         <span className="text-xs font-semibold text-gray-600">
           #{routine.id}
         </span>

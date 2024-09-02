@@ -13,9 +13,10 @@ const fetchData = async <T>({
   params,
   path,
 }: FetchDataParams): Promise<T | AxiosError | null> => {
+  const url = process.env.NEXT_PUBLIC_BASE_URL;
   try {
     const response: AxiosResponse<T> = await axios({
-      url: "http://localhost:3000/api/fetch",
+      url: `${url}/api/fetch`,
       method: "POST",
       timeout: 10000, // 10 segundos de timeout
       data: {

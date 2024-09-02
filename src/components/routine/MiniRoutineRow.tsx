@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useContext } from "react";
 import { reactContext } from "~/context";
 import { type Routine } from "~/types/Models";
-import { RoutineStatusLabel } from "../labels/RoutineStatusLabel";
 
 interface MiniRoutineRowParams {
   className?: string;
@@ -39,7 +38,7 @@ export const MiniRoutineRow = ({
       <div className="flex basis-[10%] text-xs font-semibold tracking-tight text-gray-700">
         {targetDate}
       </div>
-      <RoutineStatusLabel status={routine.status} className="flex basis-[5%]" />
+
       <div className="col-span-2 flex basis-[45%] flex-col justify-start">
         <span className="mb-[-7px] text-xs font-semibold text-gray-400">
           #{routine.id}
