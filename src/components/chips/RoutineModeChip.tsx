@@ -23,7 +23,7 @@ export const RoutineModeChip = ({
 
   return (
     <div
-      className={`rounded-lg ${colorMap[mode]} ${className} px-4 py-1 text-center text-xs font-semibold uppercase tracking-tighter text-white shadow-md`}
+      className={`flex h-full items-center justify-center rounded-lg ${colorMap[mode]} ${className} px-4 py-1 text-center text-xs font-semibold uppercase tracking-tighter text-white shadow-md`}
     >
       {textMap[mode]}
     </div>

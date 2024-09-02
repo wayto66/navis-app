@@ -44,7 +44,7 @@ export const ProjectCreateView = ({ handleClose }: ProjectCreateViewParams) => {
   };
 
   return (
-    <Modal>
+    <Modal onClick={handleClose}>
       <div
         className="animation-spin-y relative flex max-h-[90vh] min-w-[650px] flex-col gap-4 overflow-auto rounded-lg bg-white p-8"
         ref={animRef}
@@ -105,9 +105,9 @@ export const ProjectCreateView = ({ handleClose }: ProjectCreateViewParams) => {
           </div>
 
           <div className="grid grid-cols-2 gap-4 pt-4">
-            <Button>Criar</Button>
+            <Button>✅ Criar</Button>
             <Button layout="cancel" onClick={() => handleClose()}>
-              Cancelar
+              ❌ Cancelar
             </Button>
           </div>
         </form>

@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { reactContext } from "~/context";
 import { type Routine } from "~/types/Models";
 import { getDaysDifference } from "~/utils/getDaysDifference";
+import { RemainingDaysChip } from "../chips/RemainingDaysChip";
 import { RoutineModeChip } from "../chips/RoutineModeChip";
 
 interface RoutineRowParams {
@@ -41,11 +42,7 @@ export const RoutineRow = ({
       className={`${className} grid cursor-pointer grid-cols-7 items-center justify-center gap-4 transition hover:bg-gray-100`}
       onClick={onClick}
     >
-      <div
-        className={`rounded-lg text-center ${getRemainingDaysChipColor(remainingDays)} px-3 py-1 font-semibold tracking-tight text-white`}
-      >
-        📅 {remainingDays} Dias
-      </div>
+      <RemainingDaysChip deadline={routine.targetDate} />
       <RoutineModeChip mode={routine.mode} className="" />
 
       <div className="col-span-2 flex flex-col justify-start">

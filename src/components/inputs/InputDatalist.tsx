@@ -15,6 +15,7 @@ interface InputDatalistParams<T extends FieldValues> {
   children: JSX.Element | JSX.Element[];
   placeholder?: string;
   valueParser?: (value?: any) => any;
+  className?: string;
 }
 
 export const InputDatalist = <T extends FieldValues>({
@@ -23,6 +24,7 @@ export const InputDatalist = <T extends FieldValues>({
   children,
   placeholder,
   valueParser,
+  className,
 }: InputDatalistParams<T>) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = (
@@ -32,7 +34,7 @@ export const InputDatalist = <T extends FieldValues>({
   };
 
   return (
-    <div className="relative">
+    <div className={`${className} relative`}>
       <input
         className="no-caret w-full appearance-none rounded-lg border px-4 py-1"
         list={paramName}

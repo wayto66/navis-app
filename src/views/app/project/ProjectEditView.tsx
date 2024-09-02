@@ -263,14 +263,15 @@ export const ProjectEditView = ({
               </div>
             </div>
 
+
             <div className="grid grid-cols-7 gap-4 pt-4">
-              <Button className="col-span-3">Salvar</Button>
+              <Button className="col-span-3">✅ Salvar</Button>
               <Button
                 className="col-span-3"
                 layout="cancel"
                 onClick={() => handleClose()}
               >
-                Cancelar
+                ❌ Cancelar
               </Button>
               <HoldButton
                 type="button"

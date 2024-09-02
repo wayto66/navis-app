@@ -76,7 +76,7 @@ export const TaskRow = ({ task, className, onClick }: TaskRowParams) => {
           <span className="text-xs tracking-tighter">{assignee?.name}</span>
         </div>
       </div>
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-col items-start justify-center">
         <div className="flex flex-col items-center">
           <div className="h-8 w-8 rounded-lg bg-primary">
             {creator?.image && (
@@ -89,7 +89,6 @@ export const TaskRow = ({ task, className, onClick }: TaskRowParams) => {
               />
             )}
           </div>
-          <span className="text-xs tracking-tighter">{creator?.name}</span>
         </div>
         <span className="text-xs tracking-tighter">em {creationDate}</span>
       </div>
