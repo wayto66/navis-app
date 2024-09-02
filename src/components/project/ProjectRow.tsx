@@ -86,7 +86,7 @@ export const ProjectRow = ({
         </div>
       </div>
 
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-col items-start">
         <div className="flex flex-col items-start">
           <div className="h-8 w-8 rounded-lg bg-primary">
             {user?.image && (
@@ -99,7 +99,6 @@ export const ProjectRow = ({
               />
             )}
           </div>
-          <span className="text-xs tracking-tighter">{user?.name}</span>
         </div>
         <span className="text-xs tracking-tighter">em {creationDate}</span>
       </div>

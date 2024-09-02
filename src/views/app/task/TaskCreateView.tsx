@@ -117,7 +117,7 @@ export const TaskCreateView = ({ handleClose }: TaskCreateViewParams) => {
     void findDependantTask();
   }, [debouncedSearchTerm]);
   return (
-    <Modal>
+    <Modal onClick={handleClose}>
       <div className="animation-spin-y relative flex max-h-[90vh] min-w-[650px] flex-col gap-4 overflow-auto rounded-lg bg-white p-8">
         <div className="absolute left-0 top-0 flex items-center gap-2 rounded-br-lg bg-gradient-to-r from-primary to-primary/80 px-8 py-1 font-bold tracking-tight text-white">
           <Icon icon={"fluent:clipboard-task-add-24-regular"} fontSize={31} />
@@ -131,27 +131,34 @@ export const TaskCreateView = ({ handleClose }: TaskCreateViewParams) => {
               placeholder="Título"
             />
           </InputGroup>
-          <div className="grid grid-cols-3 items-center gap-4">
-            <InputGroup label="Projeto" className="col-span-2">
+
+          <InputGroup label="Projeto">
+            <div className="flex flex-row items-center justify-between gap-4">
               <InputDatalist<CreateTaskDto>
                 paramName="projectId"
                 setValue={setValue}
                 placeholder={"Digite o nome do projeto"}
                 valueParser={projectIdInputParser}
+                className="grow"
               >
                 <ProjectOptions />
               </InputDatalist>
-            </InputGroup>
-            <div className="flex flex-row items-start gap-2">
-              <Toggle<CreateTaskDto>
-                register={register}
-                parameter="createProject"
-              />
-              <div className="text-xs font-semibold text-gray-700">
-                Criar Novo Projeto
+              <div className="basis-[15%] text-center font-semibold tracking-tight text-gray-500">
+                ou
+              </div>
+              <div className="col-span-2 flex flex-row items-center gap-2">
+                <Toggle<CreateTaskDto>
+                  register={register}
+                  parameter="createProject"
+                />
+
+                <div className="text-xs font-semibold text-gray-700">
+                  Criar Novo Projeto
+                </div>
               </div>
             </div>
-          </div>
+          </InputGroup>
+
           <InputGroup label="Descrição">
             <TextArea<CreateTaskDto>
               register={register}
@@ -241,9 +248,9 @@ export const TaskCreateView = ({ handleClose }: TaskCreateViewParams) => {
           </div>
 
           <div className="grid grid-cols-2 gap-4 pt-4">
-            <Button>Criar</Button>
+            <Button>✅ Criar</Button>
             <Button layout="cancel" onClick={() => handleClose()}>
-              Cancelar
+              ❌ Cancelar
             </Button>
           </div>
         </form>

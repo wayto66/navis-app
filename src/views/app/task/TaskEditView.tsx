@@ -123,7 +123,10 @@ export const TaskEditView = ({ handleClose, taskId }: TaskEditViewParams) => {
 
   return (
     <Modal onClick={handleClose}>
-      <div ref={animRef} className="flex flex-row items-start gap-4">
+      <div
+        ref={animRef}
+        className="animation-spin-y flex flex-row items-start gap-4"
+      >
         <div className="relative flex max-h-[90vh] min-w-[650px] flex-col gap-4 overflow-auto rounded-lg bg-white p-8">
           <div className="absolute left-0 top-0 flex items-center gap-2 rounded-br-lg bg-gradient-to-r from-primary to-primary/80 px-8 py-1 font-bold tracking-tight text-white">
             <Icon icon={"fluent:clipboard-task-add-24-regular"} fontSize={31} />
@@ -264,9 +267,9 @@ export const TaskEditView = ({ handleClose, taskId }: TaskEditViewParams) => {
             </div>
 
             <div className="grid grid-cols-2 gap-4 pt-4">
-              <Button>Salvar</Button>
+              <Button>✅ Salvar</Button>
               <Button layout="cancel" onClick={() => handleClose()}>
-                Cancelar
+                ❌ Cancelar
               </Button>
             </div>
           </form>
