@@ -3,7 +3,7 @@ import axios, { type AxiosError, type AxiosResponse } from "axios";
 export interface FetchDataParams {
   path: string;
   data: unknown;
-  method: "GET" | "POST" | "PATCH";
+  method: "GET" | "POST" | "PATCH" | "DELETE";
   params?: Record<string, unknown>;
 }
 
