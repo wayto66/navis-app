@@ -10,7 +10,7 @@ import { DateSelector } from "~/components/common/DateSelector";
 import { Divider } from "~/components/common/Divider";
 import { InputSelect } from "~/components/common/InputSelect";
 import { InputText } from "~/components/common/InputText";
-import { TableHeaderCell } from "~/components/table/TableHeaderCell";
+import { Table } from "~/components/table/Table";
 import useDebounce from "~/hooks/useDebounce";
 import { getProject } from "~/services/project/getProject";
 import {
@@ -138,12 +138,14 @@ const ProjectListPage: NextPage = () => {
           </InputSelect>
           <InputSelect register={register} className="grow" paramName="status">
             <option value={""}>Selecionar Estado</option>
-            <option value={TaskStatus.DEFINE_DEADLINE}>SEM PRAZO</option>
-            <option value={TaskStatus.PENDING}>PENDENTE</option>
-            <option value={TaskStatus.IN_APPROVAL}>APROVAÇÃO</option>
-            <option value={TaskStatus.IN_CHANGE}>ALTERAÇÃO</option>
-            <option value={TaskStatus.COMPLETED}>FINALIZADA</option>
-            <option value={TaskStatus.CANCELLED}>CANCELADA</option>
+            <option value={TaskStatus.DEFINE_DEADLINE}>📆 Definir Prazo</option>
+            <option value={TaskStatus.PENDING}>💤 Pendente</option>
+            <option value={TaskStatus.IN_PROGRESS}>🔨 Em Progresso</option>
+            <option value={TaskStatus.IN_CHANGE}>🚧 Em Alteração</option>
+            <option value={TaskStatus.IN_APPROVAL}>🕵️‍♀️ Em Aprovação</option>
+            <option value={TaskStatus.COMPLETED}>✅ Finalizada</option>
+            <option value={TaskStatus.CANCELLED}>❌ Cancelada</option>
+            <option value={TaskStatus.LOCKED}>🔒 Travada</option>
           </InputSelect>
         </div>
 
@@ -160,6 +162,7 @@ const ProjectListPage: NextPage = () => {
               register={register}
               placeholder="Pesquisar por..."
               className="ml-auto"
+              icon="material-symbols:search"
             />
             <Button
               className="flex !w-max flex-row gap-2"
@@ -171,65 +174,49 @@ const ProjectListPage: NextPage = () => {
           </div>
         </div>
         <Divider />
-        <div className="grid w-full grid-cols-8 items-center justify-center gap-4 px-8">
-          <TableHeaderCell
-            label="Prazo"
-            onClick={handleReorder}
-            paramName="targetDate"
-            sortOrder={sortOrder}
-            sortTarget={sortTarget}
-          />
-          <TableHeaderCell
-            label="Estado"
-            onClick={handleReorder}
-            paramName="status"
-            sortOrder={sortOrder}
-            sortTarget={sortTarget}
-          />
-          <TableHeaderCell
-            label="Prioridade"
-            onClick={handleReorder}
-            paramName="priority"
-            sortOrder={sortOrder}
-            sortTarget={sortTarget}
-          />
-          <TableHeaderCell
-            label="Título"
-            onClick={handleReorder}
-            paramName="title"
-            sortOrder={sortOrder}
-            sortTarget={sortTarget}
-            className="col-span-2"
-          />{" "}
-          <div
-            className={`flex flex-row items-center justify-between gap-4 text-start text-sm font-semibold uppercase tracking-tight text-gray-600`}
-          >
-            Progresso
-          </div>
-          <TableHeaderCell
-            label="Cliente"
-            onClick={handleReorder}
-            paramName="customerId"
-            sortOrder={sortOrder}
-            sortTarget={sortTarget}
-          />
-          <TableHeaderCell
-            label="Criado por"
-            onClick={handleReorder}
-            paramName="creatorId"
-            sortOrder={sortOrder}
-            sortTarget={sortTarget}
-          />
-        </div>
-        <Divider />
-        <div className="flex w-full flex-col">
+        <Table
+          cols={8}
+          heads={[
+            {
+              label: "Prazo",
+              paramName: "targetDate",
+            },
+            {
+              label: "Estado",
+              paramName: "status",
+            },
+            {
+              label: "Prioridade",
+              paramName: "priority",
+            },
+            {
+              label: "Título",
+              paramName: "title",
+              className: "col-span-2",
+            },
+            {
+              label: "Progresso",
+              paramName: "progress",
+            },
+            {
+              label: "Responsável",
+              paramName: "assignedId",
+            },
+            {
+              label: "Criado",
+              paramName: "creatorId",
+            },
+          ]}
+        >
           <ProjectList
             projects={projects}
             onClick={openProjectEditView}
             sortOrder={sortOrder}
             sortTarget={sortTarget as ProjectSortTarget}
           />
-        </div>
+        </Table>
+
+        <Divider />
       </div>
     </main>
   );

@@ -17,7 +17,7 @@ export const TaskPriorityChip = ({ priority }: { priority: TaskPriority }) => {
 
   return (
     <div
-      className={`rounded-lg ${colorMap[priority]} px-4 py-1 text-center text-xs font-semibold uppercase tracking-tighter text-white shadow-md`}
+      className={`rounded-lg ${colorMap[priority]} flex h-full items-center justify-center px-4 py-1 text-center text-xs font-semibold uppercase tracking-tighter text-white shadow-md`}
     >
       {textMap[priority]}
     </div>

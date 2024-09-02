@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Button } from "~/components/common/Button";
 import { Divider } from "~/components/common/Divider";
+import HoldButton from "~/components/common/HoldButton";
 import { IconButton } from "~/components/common/IconButton";
 import { InputDate } from "~/components/common/InputDate";
 import { InputGroup } from "~/components/common/InputGroup";
@@ -13,10 +14,12 @@ import { InputText } from "~/components/common/InputText";
 import { TextArea } from "~/components/common/TextArea";
 import { MiniTaskRow } from "~/components/task/MiniTaskRow";
 import { Modal } from "~/layouts/modal";
+import { deleteTask } from "~/services/task/deleteTask";
 import { getTask } from "~/services/task/getTask";
 import { updateTask } from "~/services/task/updateTask";
 import { TaskPriority, TaskStatus, type Task } from "~/types/Models";
 import { type UpdateTaskDto } from "~/types/task/update-task.dto";
+import awaitFor from "~/utils/awaitFor";
 import { CommentChain } from "../comment/CommentChain";
 import { CustomerOptions } from "../customer/CustomerOptions";
 import { UserOptions } from "../user/UserOptions";
@@ -98,6 +101,19 @@ export const TaskEditView = ({ handleClose, taskId }: TaskEditViewParams) => {
     );
   };
 
+  const handleDeleteTask = async () => {
+    if (!task) return;
+    const response = await deleteTask(task.id);
+    if (!response?.id) {
+      toast.error("Houve um erro ao excluir a tarefa");
+      return;
+    }
+
+    await awaitFor(false, 0.5);
+
+    handleClose();
+  };
+
   const dependantTasksDisplay = useMemo(() => {
     return task?.dependsOn?.map((dependancy) => (
       <>
@@ -123,7 +139,10 @@ export const TaskEditView = ({ handleClose, taskId }: TaskEditViewParams) => {
 
   return (
     <Modal onClick={handleClose}>
-      <div ref={animRef} className="flex flex-row items-start gap-4">
+      <div
+        ref={animRef}
+        className="animation-spin-y flex flex-row items-start gap-4"
+      >
         <div className="relative flex max-h-[90vh] min-w-[650px] flex-col gap-4 overflow-auto rounded-lg bg-white p-8">
           <div className="absolute left-0 top-0 flex items-center gap-2 rounded-br-lg bg-gradient-to-r from-primary to-primary/80 px-8 py-1 font-bold tracking-tight text-white">
             <Icon icon={"fluent:clipboard-task-add-24-regular"} fontSize={31} />
@@ -263,11 +282,29 @@ export const TaskEditView = ({ handleClose, taskId }: TaskEditViewParams) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 pt-4">
-              <Button>Salvar</Button>
-              <Button layout="cancel" onClick={() => handleClose()}>
-                Cancelar
+
+            <div className="grid grid-cols-7 gap-4 pt-4">
+              <Button className="col-span-3">✅ Salvar</Button>
+              <Button
+                className="col-span-3"
+                layout="cancel"
+                onClick={() => handleClose()}
+              >
+                ❌ Cancelar
+
               </Button>
+              <HoldButton
+                type="button"
+                completedText={"👍"}
+                className="flex flex-col items-center justify-center"
+                holdTime={2000}
+                onClick={handleDeleteTask}
+              >
+                <span>🗑</span>
+                <span className="text-xs tracking-tight text-white">
+                  Excluir
+                </span>
+              </HoldButton>
             </div>
           </form>
         </div>

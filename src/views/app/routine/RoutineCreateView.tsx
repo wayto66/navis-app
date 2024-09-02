@@ -5,7 +5,6 @@ import { type FormEvent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Button } from "~/components/common/Button";
-import { Divider } from "~/components/common/Divider";
 import { InputGroup } from "~/components/common/InputGroup";
 import { InputSelect } from "~/components/common/InputSelect";
 import { InputText } from "~/components/common/InputText";
@@ -53,7 +52,7 @@ export const RoutineCreateView = ({ handleClose }: RoutineCreateViewParams) => {
   };
 
   return (
-    <Modal>
+    <Modal onClick={handleClose}>
       <div className="animation-spin-y relative flex max-h-[90vh] min-w-[650px] flex-col gap-4 overflow-auto rounded-lg bg-white p-8">
         <div className="absolute left-0 top-0 flex items-center gap-4 rounded-br-lg bg-gradient-to-r from-primary to-primary/80 px-8 py-1 font-bold tracking-tight text-white">
           <Icon icon={"akar-icons:schedule"} fontSize={20} />
@@ -114,12 +113,10 @@ export const RoutineCreateView = ({ handleClose }: RoutineCreateViewParams) => {
           />
           <div className="grid grid-cols-2 gap-6 py-2"></div>
 
-          <Divider className="my-4" />
-
           <div className="grid grid-cols-2 gap-4 pt-4">
-            <Button>Criar</Button>
+            <Button>✅ Criar</Button>
             <Button layout="cancel" onClick={() => handleClose()}>
-              Cancelar
+              ❌ Cancelar
             </Button>
           </div>
         </form>

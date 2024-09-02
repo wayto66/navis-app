@@ -11,9 +11,22 @@
   }
 }
 
+:root {
+  --rs-primary: #ff2c55;
+  --rs-bg-active: var(--rs-primary);
+  --rs-btn-link-text: #ff2c55;
+  --rs-btn-primary-bg: var(--rs-btn-link-text);
+}
+
 .rs-picker-popup.rs-picker-popup-date {
   z-index: 99;
 }
+
+/* .rs-btn-primary,
+.rs-btn-default,
+.rs-calendar-table-cell-selected .rs-calendar-table-cell-content {
+  background-color: #ff2c55;
+} */
 
 .animation-spin-y {
   perspective: 1500px; /* Cria a perspectiva 3D */

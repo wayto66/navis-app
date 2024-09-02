@@ -25,7 +25,7 @@ export const TaskStatusChip = ({ status }: { status: TaskStatus }) => {
 
   return (
     <div
-      className={`rounded-lg ${colorMap[status]} px-4 py-1 text-center text-xs font-semibold uppercase tracking-tighter text-white shadow-md`}
+      className={`flex h-full items-center justify-center rounded-lg ${colorMap[status]} px-4 py-1 text-center text-xs font-semibold uppercase tracking-tighter text-white shadow-md`}
     >
       {textMap[status]}
     </div>
