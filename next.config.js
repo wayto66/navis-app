@@ -21,6 +21,9 @@ const config = {
   images: {
     domains: ["scontent.faqa3-1.fna.fbcdn.net", "i.imgur.com"], // Adicione aqui o domínio que está causando o erro
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default config;

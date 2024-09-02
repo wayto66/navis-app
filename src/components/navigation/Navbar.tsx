@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { reactContext } from "~/context";
-import { handlePanelChange } from "~/utils/handlePanelChange";
 
 type TNavbarConfigParams = {
   open: boolean;
@@ -207,9 +206,6 @@ export const Navbar = () => {
                                 ? "bg-jpurple"
                                 : "hover:bg-white/20"
                             }`}
-                            onClick={() =>
-                              handlePanelChange(ctx, router, childOption.url)
-                            }
                           >
                             <div className="relative mr-[-25px] flex flex-row">
                               <i className="">{option.icon}</i>

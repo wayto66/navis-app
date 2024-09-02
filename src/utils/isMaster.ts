@@ -1,4 +1,4 @@
-import { Session } from "next-auth";
+import { type Session } from "next-auth";
 
 const isMaster = (session: Session | null) => {
   if (!session) return null;

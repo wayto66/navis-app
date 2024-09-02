@@ -29,13 +29,13 @@ interface RoutineCreateInputsParams {
 const WeeklyRoutineInputs = ({ register, watch, setValue }: UseFormProps) => {
   const [weekDays, setWeekDays] = useState<number[]>([]);
   const textMap: Record<number, string> = {
-    0: "Segunda-Feira",
-    1: "Terça-Feira",
-    2: "Quarta-Feira",
-    3: "Quinta-Feira",
-    4: "Sexta-Feira",
-    5: "Sábado",
-    6: "Domingo",
+    0: "Domingo",
+    1: "Segunda-Feira",
+    2: "Terça-Feira",
+    3: "Quarta-Feira",
+    4: "Quinta-Feira",
+    5: "Sexta-Feira",
+    6: "Sábado",
   };
 
   const toggle = (dayNumber: number) => {
